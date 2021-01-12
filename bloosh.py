@@ -1,33 +1,47 @@
-import sqlite3
-#hi
-# welcome to bloosh
-connection = sqlite3.connect('bloosh1.db')
-cursor = connection.cursor()
+from model import *
+from login import *
+from controller import *
 
-command1 = """ CREATE TABLE IF NOT EXISTS
-games(game_name TEXT, date_started TEXT, date_finished TIMESTAMP, 
-minutes_played INTEGER, user TEXT)"""
-cursor.execute(command1)
+current_game = "witcher 3"
+minutes_played = 30
+# your_games = [
+#     "witcher 3",
+#     "cyberpunk 2077",
+#     "fall guys",
+#     "spelunky 2",
+#     "minecraft",
+#     "forza horizon 4",
+#     "sekiro"
+# ]
 
-command2 = """ CREATE TABLE IF NOT EXISTS
-sessions(game_name TEXT, minutes_played INTEGER, session_date TEXT,
-user TEXT)"""
-cursor.execute(command2)
+your_games = []
+def main_menu():
+    response = input("Type 1 to add to game list, 2 to view all games, 3 to add session(incomplete), 4 to delete session(incomplete) \n")
+    if response == "1":
+        create_game_record()
+        main_menu()
+    elif response == "2":
+        view_all_games()
+        main_menu()
+    elif response == "3":
+        print("feature under construction")
+    elif response == "4":
+        print("feature under construction")
+    else:
+        quit()
 
-command3 = """ CREATE TABLE IF NOT EXISTS
-users(first_name TEXT, last_name TEXT, user_name TEXT,
-password TEXT, email_address TEXT)"""
+def create_game_record():
+    write_game_record_controller()
 
-cursor.execute(command3)
-#seed data
-# cursor.execute("INSERT INTO games VALUES ('Witcher 3','01-10-2021','01-11-2021', 20, 'xsist14')")
-# cursor.execute("INSERT INTO games VALUES ('Assassins Creed Odyssey','01-10-2021','01-11-2021', 30, 'muddlefoot')")
+def view_all_games():
+    show_user_games_list()
 
-cursor.execute("select * from games")
-print(cursor.fetchone())
+print("Welcome to Bloosh! What would you like to do?")
+main_menu()
 
-cursor.execute("select * from games where user = 'muddlefoot'")
-print(cursor.fetchone())
-connection.commit()
+def view_single_game():
+    print(f"you have played the {current_game} for {minutes_played} minutes")
 
-connection.close()
+def create_game_session_record():
+    game_title = input("what is the game called?: \n")
+    minutes_played = input("how long did you play for?: \n")
