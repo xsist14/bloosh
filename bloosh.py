@@ -16,7 +16,7 @@ minutes_played = 30
 
 your_games = []
 def main_menu():
-    response = input("Type 1 to add to game list, 2 to view all games, 3 to add session(incomplete), 4 to delete session(incomplete) \n")
+    response = input("Type 1 to add to game list, 2 to view all games, 3 to add session(incomplete), 4 to delete session(incomplete), 5 to delete game \n")
     if response == "1":
         create_game_record()
         main_menu()
@@ -27,6 +27,9 @@ def main_menu():
         print("feature under construction")
     elif response == "4":
         print("feature under construction")
+    #delete game
+    elif response == "5":
+        delete_game_record_controller()
     else:
         quit()
 
