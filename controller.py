@@ -1,4 +1,5 @@
 from model import *
+import datetime
 
 #grabbing from the database
 def fetch_user_games_list():
@@ -6,11 +7,14 @@ def fetch_user_games_list():
 
 def write_game_record_controller():
     game_title = input("what is the game called?: \n")
-    game_start = input("when did you start playing it?: \n")
+    now = datetime.datetime.now()
+    game_start = str(now.year) + '-' + str(now.month) + '-' + str(now.day)
+    print(game_start)
     minutes_played = input("how long did you play for?: \n")
     game_finished = "pending"
     user = "xsist14"
     write_to_games_list_for_user(game_title, game_start,game_finished, minutes_played, user)
+
 def delete_game_record_controller():
     user = "xsist14"
     name = input("what is the game called?: \n")
@@ -18,5 +22,13 @@ def delete_game_record_controller():
 
 #giving to the view
 def show_user_games_list():
+    your_games = []
     results = read_games_list_for_user()
-    print(results)
+    for game in results:
+        game = str(game)
+        game = game.replace("(", "")
+        game = game.replace(")", "")
+        game = game.replace("'", "")
+        game = game.replace(",", "")
+        your_games.append(game)
+    return(your_games)

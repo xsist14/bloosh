@@ -1,0 +1,1 @@
+This is a timetracker application using an mvc model and is written in python with sqlite db.
