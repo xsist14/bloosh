@@ -19,13 +19,14 @@ def main_menu():
     print("1: add to game list")
     print("2: view games")
     print("3: delete game from list")
-    print("4: add game session")
-    print("5: delete game session")
+    print("4: View Single Game Details")
+    print("5: add game session")
+    print("6: delete game Session")
     print("9: quit application")
     response = input("choose(1 2 3 4 5 or 9) \n")
     #add to game list
     if response == "1":
-        create_game_record()
+        write_game_record_controller()
         main_menu()
     elif response == "2":
         view_all_games()
@@ -36,14 +37,20 @@ def main_menu():
         delete_game_record_controller()
         main_menu()
     elif response == "4":
-        print("feature under construction")
+        view_all_games()
+        name_of_game = input("Which game would you like to see from the list above?").lower()
+        show_user_game_controller(name_of_game)
+        response = input("type 'y' to continue")
+        if response == 'y':
+            main_menu()
     elif response == "5":
-        print("feature under construction")
+        print("add session under construction")
+    elif response == "6":
+        print("delete session under construction")
     else:
         quit()
 
-def create_game_record():
-    write_game_record_controller()
+
 
 def view_all_games():
     clear()
@@ -56,8 +63,7 @@ def view_all_games():
 print("Welcome to Bloosh! What would you like to do?")
 main_menu()
 
-def view_single_game():
-    print(f"you have played the {current_game} for {minutes_played} minutes")
+
 
 #sessions logic
 def create_game_session_record():
