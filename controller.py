@@ -34,7 +34,23 @@ def show_user_game_controller(name_of_game):
         print(column)
 
 # update
-'''under construction'''
+def update_game_record_controller():
+    user = "xsist14"
+    game_title = input("what is the game called?: \n").lower()
+    game_year_start = input("what year did you start playing?: \n").lower()
+    game_month_start = input("what month did you start playing?: \n").lower()
+    game_day_start = input("what day of the month did you start playing?: \n").lower()
+    response = input("did you finish the game? type 'y' or 'n'")
+    if response == "y":
+        game_year_finish = input("what year did you finish playing?: \n").lower()
+        game_month_finish = input("what month did you finish playing?: \n").lower()
+        game_day_finish = input("what day of the month did you finish playing?: \n").lower()
+        game_finished = game_year_finish + "-" + game_month_finish + "-" + game_day_finish
+    else:
+        game_finished = "pending"
+    minutes_played = input("how long did you play for?: \n")
+    game_start = game_year_start + "-" + game_month_start + "-" + game_day_start
+    update_game_record_model(game_title, game_start,game_finished, minutes_played, user)
 
 # delete
 def delete_game_record_controller():

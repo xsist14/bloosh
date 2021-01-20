@@ -27,6 +27,18 @@ def show_user_game_model(name):
     return results
 
 # update
+def update_game_record_model(game_title, game_start,game_finished, minutes_played, user):
+    connection = sqlite3.connect('bloosh1.db')
+    cursor = connection.cursor()
+    cursor.execute(''' UPDATE games
+              SET date_started = ? ,
+                  date_finished = ? ,
+                  minutes_played = ?
+              WHERE game_name = ?
+              AND user = ?''', (game_start,game_finished,minutes_played,game_title,user,))
+    connection.commit()
+    connection.close()
+
 # delete
 def delete_from_games_list_for_user(name, user):
     connection = sqlite3.connect('bloosh1.db')

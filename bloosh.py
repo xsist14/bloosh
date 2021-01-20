@@ -29,6 +29,7 @@ def main_menu():
     print("4: View Single Game Details")
     print("5: add game session")
     print("6: delete game Session")
+    print("7: Update Game Record")
     print("9: quit application")
     response = input("choose(1 2 3 4 5 or 9) \n")
     #add to game list
@@ -54,6 +55,13 @@ def main_menu():
         print("add session under construction")
     elif response == "6":
         print("delete session under construction")
+    elif response == "7":
+        view_all_games()
+        update_game_record_controller()
+        response = input("type 'y' to continue")
+        if response == 'y':
+            main_menu()
+
     else:
         quit()
 
@@ -62,7 +70,6 @@ def main_menu():
 def view_all_games():
     clear()
     your_games = show_user_games_list()
-    games = ""
     for game in your_games:
         print(game.title())
 
