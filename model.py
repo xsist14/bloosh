@@ -41,6 +41,7 @@ def delete_from_games_list_for_user(name, user):
 
 
 def create_bloosh_database():
+    '''just leaving this code here in case I ever want to delete and recreate the database'''
     connection = sqlite3.connect('bloosh1.db')
     cursor = connection.cursor()
 

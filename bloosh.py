@@ -13,6 +13,13 @@ def clear():
     else: 
         _ = system('clear') 
 
+def login_screen():
+    clear()
+    print("1: log in")
+    print("2: sign up")
+    print("3: forgot password")
+
+
 def main_menu():
     clear()
     print(logo)
