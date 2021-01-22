@@ -1,5 +1,6 @@
 import sqlite3
 
+
 # create
 def write_to_games_list_for_user(name, date_started, date_finished, minutes_played, user):
     connection = sqlite3.connect('bloosh1.db')
@@ -7,6 +8,7 @@ def write_to_games_list_for_user(name, date_started, date_finished, minutes_play
     cursor.execute("INSERT INTO games VALUES(?,?,?,?,?)", (name, date_started, date_finished, minutes_played, user))
     connection.commit()
     connection.close()
+
 
 # read
 def read_games_list_for_user():
@@ -17,6 +19,8 @@ def read_games_list_for_user():
     connection.commit()
     connection.close()
     return results
+
+
 def show_user_game_model(name):
     connection = sqlite3.connect('bloosh1.db')
     cursor = connection.cursor()
@@ -26,6 +30,19 @@ def show_user_game_model(name):
     connection.close()
     return results
 
+
+def show_users_model():
+    connection = sqlite3.connect('bloosh1.db')
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM users")
+    results = cursor.fetchall()
+    connection.commit()
+    connection.close()
+    return results
+# TODO 7: show all users function
+
+
+# TODO 6: show single user function
 # update
 def update_game_record_model(game_title, game_start,game_finished, minutes_played, user):
     connection = sqlite3.connect('bloosh1.db')
@@ -39,6 +56,7 @@ def update_game_record_model(game_title, game_start,game_finished, minutes_playe
     connection.commit()
     connection.close()
 
+
 # delete
 def delete_from_games_list_for_user(name, user):
     connection = sqlite3.connect('bloosh1.db')
@@ -48,12 +66,8 @@ def delete_from_games_list_for_user(name, user):
     connection.close()
 
 
-
-
-
-
 def create_bloosh_database():
-    '''just leaving this code here in case I ever want to delete and recreate the database'''
+    """just leaving this code here in case I ever want to delete and recreate the database"""
     connection = sqlite3.connect('bloosh1.db')
     cursor = connection.cursor()
 

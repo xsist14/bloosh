@@ -1,10 +1,15 @@
 from os import system, name 
-
-from model import *
-from login import *
 from controller import *
 from art import logo
-# define our clear function 
+
+
+# TODO 5: make a function that shows all user names and passwords
+
+
+# sessions logic
+
+
+# define our clear function
 def clear(): 
     # for windows 
     if name == 'nt': 
@@ -13,6 +18,7 @@ def clear():
     else: 
         _ = system('clear') 
 
+
 def login_screen():
     clear()
     print("1: log in")
@@ -20,7 +26,19 @@ def login_screen():
     print("3: forgot password")
 
 
+'''
+new menu system
+top layer is login, signup, forgot password
+next layer is games, sessions, user info
+games is crud
+sessions is crud
+user info can be random game quotes, statistics like most played
+'''
+
+
 def main_menu():
+    # TODO 10: need a full reboot on the menu system
+
     clear()
     print(logo)
     print("1: add to game list")
@@ -31,13 +49,14 @@ def main_menu():
     print("6: delete game Session")
     print("7: Update Game Record")
     print("9: quit application")
+
     response = input("choose(1 2 3 4 5 or 9) \n")
-    #add to game list
+    # add to game list
     if response == "1":
         write_game_record_controller()
         main_menu()
     elif response == "2":
-        view_all_games()
+        show_games_controller()
         response = input("type 'y' to continue")
         if response == 'y':
             main_menu()
@@ -45,41 +64,35 @@ def main_menu():
         delete_game_record_controller()
         main_menu()
     elif response == "4":
-        view_all_games()
+        show_games_controller()
         name_of_game = input("Which game would you like to see from the list above?").lower()
         show_user_game_controller(name_of_game)
         response = input("type 'y' to continue")
         if response == 'y':
             main_menu()
     elif response == "5":
+        show_games_controller()
+        add_session_controller()
         print("add session under construction")
+        # TODO 4: choose a game
+        # TODO 2: write the time passing to the DB
+        # TODO 3: add the time passed to the overall game
+        main_menu()
     elif response == "6":
         print("delete session under construction")
+        # TODO 9: add functionality to delete sessions
     elif response == "7":
-        view_all_games()
+        show_games_controller()
         update_game_record_controller()
         response = input("type 'y' to continue")
         if response == 'y':
             main_menu()
-
     else:
         quit()
 
 
-
-def view_all_games():
-    clear()
-    your_games = show_user_games_list()
-    for game in your_games:
-        print(game.title())
+show_users_controller()
 
 
 print("Welcome to Bloosh! What would you like to do?")
 main_menu()
-
-
-
-#sessions logic
-def create_game_session_record():
-    game_title = input("what is the game called?: \n")
-    minutes_played = input("how long did you play for?: \n")
