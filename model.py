@@ -10,6 +10,14 @@ def write_to_games_list_for_user(name, date_started, date_finished, minutes_play
     connection.close()
 
 
+def create_user_model(fname, lname, user, password, email):
+    connection = sqlite3.connect('bloosh1.db')
+    cursor = connection.cursor()
+    cursor.execute("INSERT INTO users VALUES(?,?,?,?,?)",
+    (fname, lname, user, password, email))
+    connection.commit()
+    connection.close()
+
 # read
 def read_games_list_for_user():
     connection = sqlite3.connect('bloosh1.db')
@@ -35,6 +43,26 @@ def show_users_model():
     connection = sqlite3.connect('bloosh1.db')
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM users")
+    results = cursor.fetchall()
+    connection.commit()
+    connection.close()
+    return results
+
+
+def check_username_model(username):
+    connection = sqlite3.connect('bloosh1.db')
+    cursor = connection.cursor()
+    cursor.execute("SELECT user FROM users where user = ?", (username,))
+    results = cursor.fetchall()
+    connection.commit()
+    connection.close()
+    return results
+
+
+def check_password_match_model(username, password):
+    connection = sqlite3.connect('bloosh1.db')
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM users where user=? and password =?", (username, password))
     results = cursor.fetchall()
     connection.commit()
     connection.close()

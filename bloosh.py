@@ -1,7 +1,7 @@
 from os import system, name 
 from controller import *
 from art import logo
-
+from login import DoorKeeper
 
 # TODO 5: make a function that shows all user names and passwords
 
@@ -16,15 +16,7 @@ def clear():
         _ = system('cls') 
     # for mac and linux(here, os.name is 'posix') 
     else: 
-        _ = system('clear') 
-
-
-def login_screen():
-    clear()
-    print("1: log in")
-    print("2: sign up")
-    print("3: forgot password")
-
+        _ = system('clear')
 
 '''
 new menu system
@@ -34,11 +26,29 @@ games is crud
 sessions is crud
 user info can be random game quotes, statistics like most played
 '''
+door_keeper = DoorKeeper()
+is_on = True
+while is_on:
+    door_keeper.give_options()
+    response = door_keeper.get_response()
+    if response == '1':
+        door_keeper.create_account()
+    elif response == '2':
+        door_keeper.log_in()
+    elif response == '3':
+        door_keeper.forgot_password()
+    elif response == '4':
+        door_keeper.show_users()
+    elif response == 'off':
+        is_on = False
 
 
-def main_menu():
+
+
+def login_screen():
     # TODO 10: need a full reboot on the menu system
-
+    # TODO 11: make a logout function
+    print()
     clear()
     print(logo)
     print("1: add to game list")
@@ -95,4 +105,5 @@ show_users_controller()
 
 
 print("Welcome to Bloosh! What would you like to do?")
-main_menu()
+# main_menu()
+
