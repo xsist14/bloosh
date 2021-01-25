@@ -18,11 +18,16 @@ def create_user_model(fname, lname, user, password, email):
     connection.commit()
     connection.close()
 
+
+def add_session_model():
+    pass
+
+
 # read
-def read_games_list_for_user():
+def read_games_list_for_user(user):
     connection = sqlite3.connect('bloosh1.db')
     cursor = connection.cursor()
-    cursor.execute("select game_name from games where user = 'xsist14'")
+    cursor.execute("select game_name from games where user = ?", (user,))
     results = cursor.fetchall()
     connection.commit()
     connection.close()
@@ -62,7 +67,7 @@ def check_username_model(username):
 def check_password_match_model(username, password):
     connection = sqlite3.connect('bloosh1.db')
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM users where user=? and password =?", (username, password))
+    cursor.execute("SELECT user, password FROM users where user=? and password =?", (username, password))
     results = cursor.fetchall()
     connection.commit()
     connection.close()

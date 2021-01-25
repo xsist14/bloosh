@@ -1,32 +1,32 @@
 from model import *
 import datetime
+from time_lord import TimeLord
 
 # games logic
 
 
 # create
-def write_game_record_controller():
+def write_game_record_controller(user):
     game_title = input("what is the game called?: \n").lower()
     now = datetime.datetime.now()
     game_start = str(now.year) + '-' + str(now.month) + '-' + str(now.day)
     print(game_start)
     minutes_played = input("how long did you play for?: \n")
     game_finished = "pending"
-    user = "xsist14"
     write_to_games_list_for_user(game_title, game_start,game_finished, minutes_played, user)
 
 
-def add_session_controller():
+def add_session_controller(user):
+    doctor = TimeLord()
     game_title = input("what is the game called?: \n")
-    minutes_played = input("how long did you play for?: \n")
 # TODO 1: track time passing
 
 
 # read
-def show_games_controller():
+def show_games_controller(user):
     """show all of a users games from the terminal"""
     your_games = []
-    results = read_games_list_for_user()
+    results = read_games_list_for_user(user)
     for game in results:
         game = str(game)
         game = game.replace("(", "")
@@ -48,6 +48,7 @@ def show_users_controller():
     all_users = show_users_model()
     print(all_users)
 # TODO 8: add users to make sure this function works
+
 
 # update
 def update_game_record_controller():
