@@ -36,14 +36,14 @@ def main_menu(user):
         delete_game_record_controller()
         main_menu(user)
     elif response == "4":
-        show_games_controller()
+        show_games_controller(user)
         name_of_game = input("Which game would you like to see from the list above?").lower()
         show_user_game_controller(name_of_game)
         response = input("type 'y' to continue")
         if response == 'y':
             main_menu(user)
     elif response == "5":
-        show_games_controller()
+        show_games_controller(user)
         add_session_controller(user)
         print("add session under construction")
         # TODO 4: choose a game

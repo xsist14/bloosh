@@ -1,5 +1,5 @@
 from model import *
-import datetime
+from datetime import *
 from time_lord import TimeLord
 
 # games logic
@@ -8,17 +8,32 @@ from time_lord import TimeLord
 # create
 def write_game_record_controller(user):
     game_title = input("what is the game called?: \n").lower()
-    now = datetime.datetime.now()
+    now = datetime.now()
     game_start = str(now.year) + '-' + str(now.month) + '-' + str(now.day)
     print(game_start)
     minutes_played = input("how long did you play for?: \n")
     game_finished = "pending"
-    write_to_games_list_for_user(game_title, game_start,game_finished, minutes_played, user)
+    write_to_games_list_for_user(game_title, game_start, game_finished, minutes_played, user)
 
 
 def add_session_controller(user):
+    # TODO 16: put all this code in a method for class TimeLord
     doctor = TimeLord()
     game_title = input("what is the game called?: \n")
+    now = datetime.now()
+    response = input("type 'y' to stop tracking")
+    if response:
+        today = date.today()
+        session_date = today.strftime("%m/%d/%y")
+        later = datetime.now()
+        time_elapsed = later - now
+        time_elapsed = int(time_elapsed.total_seconds())
+        add_session_model(game_title, time_elapsed, session_date, user)
+        print(f"You have played {game_title} for {time_elapsed} seconds")
+        # passing the game title, time elapsed user to the sessions db
+        response = input("type 'y' to continue")
+
+
 # TODO 1: track time passing
 
 
@@ -26,7 +41,7 @@ def add_session_controller(user):
 def show_games_controller(user):
     """show all of a users games from the terminal"""
     your_games = []
-    results = read_games_list_for_user(user)
+    results = read_games_model(user)
     for game in results:
         game = str(game)
         game = game.replace("(", "")
@@ -39,7 +54,7 @@ def show_games_controller(user):
 
 
 def show_user_game_controller(name_of_game):
-    results = show_user_game_model(name_of_game)
+    results = show_game_model(name_of_game)
     for column in results:
         print(column)
 
@@ -67,7 +82,7 @@ def update_game_record_controller():
         game_finished = "pending"
     minutes_played = input("how long did you play for?: \n")
     game_start = game_year_start + "-" + game_month_start + "-" + game_day_start
-    update_game_record_model(game_title, game_start,game_finished, minutes_played, user)
+    update_game_record_model(game_title, game_start, game_finished, minutes_played, user)
 
 
 # delete
@@ -79,6 +94,3 @@ def delete_game_record_controller():
 
 def fetch_user_games_list():
     print("getting the games from db for a user")
-
-
-

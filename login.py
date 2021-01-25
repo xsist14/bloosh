@@ -2,7 +2,6 @@ from model import *
 
 
 class DoorKeeper:
-
     # def give_options(self):
     #     """takes no arguments and returns nothing, just shows the menu options"""
     #     print("1: create account")
