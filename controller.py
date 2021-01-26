@@ -16,22 +16,7 @@ def write_game_record_controller(user):
     write_to_games_list_for_user(game_title, game_start, game_finished, minutes_played, user)
 
 
-def add_session_controller(user):
-    # TODO 16: put all this code in a method for class TimeLord
-    doctor = TimeLord()
-    game_title = input("what is the game called?: \n")
-    now = datetime.now()
-    response = input("type 'y' to stop tracking")
-    if response:
-        today = date.today()
-        session_date = today.strftime("%m/%d/%y")
-        later = datetime.now()
-        time_elapsed = later - now
-        time_elapsed = int(time_elapsed.total_seconds())
-        add_session_model(game_title, time_elapsed, session_date, user)
-        print(f"You have played {game_title} for {time_elapsed} seconds")
-        # passing the game title, time elapsed user to the sessions db
-        response = input("type 'y' to continue")
+
 
 
 # TODO 1: track time passing
@@ -54,7 +39,7 @@ def show_games_controller(user):
 
 
 def show_user_game_controller(name_of_game):
-    results = show_game_model(name_of_game)
+    results = read_game_model(name_of_game)
     for column in results:
         print(column)
 
@@ -86,8 +71,7 @@ def update_game_record_controller():
 
 
 # delete
-def delete_game_record_controller():
-    user = "xsist14"
+def delete_game_record_controller(user):
     name = input("what is the game called?: \n").lower()
     delete_from_games_list_for_user(name, user)
 

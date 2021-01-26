@@ -2,10 +2,10 @@ import sqlite3
 
 
 # create
-def write_to_games_list_for_user(name, date_started, date_finished, minutes_played, user):
+def write_to_games_list_for_user(name, date_started, date_finished, seconds_played, user):
     connection = sqlite3.connect('bloosh1.db')
     cursor = connection.cursor()
-    cursor.execute("INSERT INTO games VALUES(?,?,?,?,?)", (name, date_started, date_finished, minutes_played, user))
+    cursor.execute("INSERT INTO games VALUES(?,?,?,?,?)", (name, date_started, date_finished, seconds_played, user))
     connection.commit()
     connection.close()
 
@@ -19,11 +19,11 @@ def create_user_model(fname, lname, user, password, email):
     connection.close()
 
 
-def add_session_model(game_name, minutes_played, session_date, user):
+def add_session_model(game_name, seconds_played, session_date, user):
     connection = sqlite3.connect('bloosh1.db')
     cursor = connection.cursor()
     cursor.execute("INSERT INTO sessions VALUES(?,?,?,?)",
-                   (game_name, minutes_played, session_date, user))
+                   (game_name, seconds_played, session_date, user))
     connection.commit()
     connection.close()
 
@@ -39,11 +39,21 @@ def read_games_model(user):
     return results
 
 
-def show_game_model(game_title):
+def read_game_model(game_title):
     connection = sqlite3.connect('bloosh1.db')
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM games WHERE user = 'xsist14' and game_name=?", (game_title,))
     results = cursor.fetchone()
+    connection.commit()
+    connection.close()
+    return results
+
+
+def read_sessions_model(user):
+    connection = sqlite3.connect('bloosh1.db')
+    cursor = connection.cursor()
+    cursor.execute("select * from sessions where user = ?", (user,))
+    results = cursor.fetchall()
     connection.commit()
     connection.close()
     return results
@@ -114,11 +124,11 @@ def create_bloosh_database():
 
     command1 = """ CREATE TABLE IF NOT EXISTS
     games(game_name TEXT, date_started TEXT, date_finished TIMESTAMP, 
-    minutes_played INTEGER, user TEXT)"""
+    seconds_played INTEGER, user TEXT)"""
     cursor.execute(command1)
     # speaking of deleting and recreating, I should change this to seconds played
     command2 = """ CREATE TABLE IF NOT EXISTS
-    sessions(game_name TEXT, minutes_played INTEGER, session_date TEXT,
+    sessions(game_name TEXT, seconds_played INTEGER, session_date TEXT,
     user TEXT)"""
     cursor.execute(command2)
 
@@ -129,4 +139,6 @@ def create_bloosh_database():
 
     connection.commit()
     connection.close()
-# create_bloosh_database()
+
+
+create_bloosh_database()

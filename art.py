@@ -10,3 +10,6 @@ logo = '''
  ░          ░  ░    ░ ░      ░ ░        ░   ░  ░  ░
       ░                                            
 '''
+
+
+# http://patorjk.com/software/taag/#p=display&f=Bloody&t=BLOOSH

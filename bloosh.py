@@ -2,10 +2,10 @@ from os import system, name
 from controller import *
 from art import logo
 from login import DoorKeeper
-
-
+from time_lord import TimeLord
 
 # sessions logic
+
 
 def main_menu(user):
     # TODO 10: need a full reboot on the menu system
@@ -20,45 +20,49 @@ def main_menu(user):
     print("5: add game session")
     print("6: delete game Session")
     print("7: Update Game Record")
+    print("8: View game sessions")
     print("9: quit application")
     print(f"Hello {user.title()}!")
-    response = input("choose(1 2 3 4 5 or 9) \n")
+    menu_response = input("choose(1 2 3 4 5 or 9) \n")
     # add to game list
-    if response == "1":
+    if menu_response == "1":
         write_game_record_controller(user)
         main_menu(user)
-    elif response == "2":
+    elif menu_response == "2":
         show_games_controller(user)
-        response = input("type 'y' to continue")
-        if response == 'y':
+        go_on = input("type 'y' to continue")
+        if go_on == 'y':
             main_menu(user)
-    elif response == "3":
-        delete_game_record_controller()
+    elif menu_response == "3":
+        delete_game_record_controller(user)
         main_menu(user)
-    elif response == "4":
+    elif menu_response == "4":
         show_games_controller(user)
         name_of_game = input("Which game would you like to see from the list above?").lower()
         show_user_game_controller(name_of_game)
-        response = input("type 'y' to continue")
-        if response == 'y':
+        go_on = input("type 'y' to continue")
+        if go_on == 'y':
             main_menu(user)
-    elif response == "5":
+    elif menu_response == "5":
+        doctor = TimeLord()
         show_games_controller(user)
-        add_session_controller(user)
-        print("add session under construction")
-        # TODO 4: choose a game
+        doctor.add_session_controller(user)
         # TODO 2: write the time passing to the DB
         # TODO 3: add the time passed to the overall game
         main_menu(user)
-    elif response == "6":
+    elif menu_response == "6":
         print("delete session under construction")
         # TODO 9: add functionality to delete sessions
-    elif response == "7":
-        show_games_controller()
+    elif menu_response == "7":
+        show_games_controller(user)
         update_game_record_controller()
-        response = input("type 'y' to continue")
-        if response == 'y':
+        go_on = input("type 'y' to continue")
+        if go_on == 'y':
             main_menu(user)
+    elif menu_response == "8":
+        doctor = TimeLord()
+        doctor.read_sessions_controller(user)
+        main_menu(user)
     else:
         quit()
 
@@ -92,8 +96,8 @@ while is_on:
     elif response == '2':
         has_permission = door_keeper.log_in()
         if has_permission:
-            user = has_permission
-            main_menu(user)
+            user_name = has_permission
+            main_menu(user_name)
     elif response == '3':
         door_keeper.forgot_password()
     elif response == '4':
@@ -106,4 +110,3 @@ show_users_controller()
 
 print("Welcome to Bloosh! What would you like to do?")
 # main_menu()
-
