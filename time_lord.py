@@ -1,11 +1,11 @@
 from datetime import *
-from model import add_session_model, read_sessions_model
+from model import *
 
 
 class TimeLord:
-    """This is the location of all the code for sessions4"""
+    """This is the location of all the code for sessions"""
     def __init__(self):
-        print("step into my Tardis")
+        pass
 
     """lots of time tracking code going on in here"""
     def add_session_controller(self, user):
@@ -21,8 +21,14 @@ class TimeLord:
             time_elapsed = int(time_elapsed.total_seconds())
             add_session_model(game_title, time_elapsed, session_date, user)
             print(f"You have played {game_title} for {time_elapsed} seconds")
+            """time_elapsed game_title"""
+            total_time = read_game_model_for_sessions(user, game_title)
+            total_time = list(total_time)
+            total_time = int(total_time[0])
+            new_time_total = int(total_time) + int(time_elapsed)
+            update_games_model_for_sessions(game_title, new_time_total, user)
             # passing the game title, time elapsed user to the sessions db
-            response = input("type 'y' to continue")
+            input("type 'y' to continue")
 
     def read_sessions_controller(self, user):
         session_data = read_sessions_model(user)

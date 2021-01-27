@@ -6,36 +6,29 @@ from time_lord import TimeLord
 
 
 # create
-def write_game_record_controller(user):
+def add_game_controller(user):
     game_title = input("what is the game called?: \n").lower()
     now = datetime.now()
     game_start = str(now.year) + '-' + str(now.month) + '-' + str(now.day)
     print(game_start)
-    minutes_played = input("how long did you play for?: \n")
+    minutes_played = 0
     game_finished = "pending"
     write_to_games_list_for_user(game_title, game_start, game_finished, minutes_played, user)
-
-
-
 
 
 # TODO 1: track time passing
 
 
 # read
-def show_games_controller(user):
+def read_games_controller(user):
     """show all of a users games from the terminal"""
     your_games = []
     results = read_games_model(user)
-    for game in results:
-        game = str(game)
-        game = game.replace("(", "")
-        game = game.replace(")", "")
-        game = game.replace("'", "")
-        game = game.replace(",", "")
-        your_games.append(game)
-    for game in your_games:
-        print(game.title())
+    formatted_games = list(results)
+    for games in formatted_games:
+        game_name = games[0]
+        time_played = games[1]
+        print(f"{game_name.title()}: {time_played}")
 
 
 def show_user_game_controller(name_of_game):
@@ -75,6 +68,3 @@ def delete_game_record_controller(user):
     name = input("what is the game called?: \n").lower()
     delete_from_games_list_for_user(name, user)
 
-
-def fetch_user_games_list():
-    print("getting the games from db for a user")

@@ -32,7 +32,7 @@ def add_session_model(game_name, seconds_played, session_date, user):
 def read_games_model(user):
     connection = sqlite3.connect('bloosh1.db')
     cursor = connection.cursor()
-    cursor.execute("select game_name from games where user = ?", (user,))
+    cursor.execute("select game_name, seconds_played from games where user = ?", (user,))
     results = cursor.fetchall()
     connection.commit()
     connection.close()
@@ -48,6 +48,15 @@ def read_game_model(game_title):
     connection.close()
     return results
 
+
+def read_game_model_for_sessions(user, game_title):
+    connection = sqlite3.connect('bloosh1.db')
+    cursor = connection.cursor()
+    cursor.execute("SELECT seconds_played FROM games WHERE user = ? and game_name=?", (user, game_title,))
+    results = cursor.fetchone()
+    connection.commit()
+    connection.close()
+    return results
 
 def read_sessions_model(user):
     connection = sqlite3.connect('bloosh1.db')
@@ -95,15 +104,26 @@ def check_password_match_model(username, password):
 
 # TODO 6: show single user function
 # update
-def update_game_record_model(game_title, game_start, game_finished, minutes_played, user):
+def update_game_record_model(game_title, game_start, game_finished, seconds_played, user):
     connection = sqlite3.connect('bloosh1.db')
     cursor = connection.cursor()
     cursor.execute(''' UPDATE games
               SET date_started = ? ,
                   date_finished = ? ,
-                  minutes_played = ?
+                  seconds_played = ?
               WHERE game_name = ?
-              AND user = ?''', (game_start, game_finished, minutes_played, game_title, user,))
+              AND user = ?''', (game_start, game_finished, seconds_played, game_title, user,))
+    connection.commit()
+    connection.close()
+
+
+def update_games_model_for_sessions(game_title, seconds_played, user):
+    connection = sqlite3.connect('bloosh1.db')
+    cursor = connection.cursor()
+    cursor.execute(''' UPDATE games
+              SET seconds_played = ?
+              WHERE game_name = ?
+              AND user = ?''', (seconds_played, game_title, user,))
     connection.commit()
     connection.close()
 
@@ -141,4 +161,4 @@ def create_bloosh_database():
     connection.close()
 
 
-create_bloosh_database()
+# create_bloosh_database()

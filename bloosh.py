@@ -7,6 +7,16 @@ from time_lord import TimeLord
 # sessions logic
 
 
+# define our clear function
+def clear():
+    # for windows
+    if name == 'nt':
+        _ = system('cls')
+    # for mac and linux(here, os.name is 'posix')
+    else:
+        _ = system('clear')
+
+
 def main_menu(user):
     # TODO 10: need a full reboot on the menu system
     # TODO 11: make a logout function
@@ -26,10 +36,10 @@ def main_menu(user):
     menu_response = input("choose(1 2 3 4 5 or 9) \n")
     # add to game list
     if menu_response == "1":
-        write_game_record_controller(user)
+        add_game_controller(user)
         main_menu(user)
     elif menu_response == "2":
-        show_games_controller(user)
+        read_games_controller(user)
         go_on = input("type 'y' to continue")
         if go_on == 'y':
             main_menu(user)
@@ -37,7 +47,7 @@ def main_menu(user):
         delete_game_record_controller(user)
         main_menu(user)
     elif menu_response == "4":
-        show_games_controller(user)
+        read_games_controller(user)
         name_of_game = input("Which game would you like to see from the list above?").lower()
         show_user_game_controller(name_of_game)
         go_on = input("type 'y' to continue")
@@ -45,7 +55,7 @@ def main_menu(user):
             main_menu(user)
     elif menu_response == "5":
         doctor = TimeLord()
-        show_games_controller(user)
+        read_games_controller(user)
         doctor.add_session_controller(user)
         # TODO 2: write the time passing to the DB
         # TODO 3: add the time passed to the overall game
@@ -54,7 +64,7 @@ def main_menu(user):
         print("delete session under construction")
         # TODO 9: add functionality to delete sessions
     elif menu_response == "7":
-        show_games_controller(user)
+        read_games_controller(user)
         update_game_record_controller()
         go_on = input("type 'y' to continue")
         if go_on == 'y':
@@ -67,14 +77,7 @@ def main_menu(user):
         quit()
 
 
-# define our clear function
-def clear(): 
-    # for windows 
-    if name == 'nt': 
-        _ = system('cls') 
-    # for mac and linux(here, os.name is 'posix') 
-    else: 
-        _ = system('clear')
+
 
 
 '''
