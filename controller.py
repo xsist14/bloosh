@@ -1,5 +1,6 @@
 from model import *
 from datetime import *
+import math
 from time_lord import TimeLord
 
 # games logic
@@ -16,19 +17,28 @@ def add_game_controller(user):
     write_to_games_list_for_user(game_title, game_start, game_finished, minutes_played, user)
 
 
-# TODO 1: track time passing
 
 
 # read
 def read_games_controller(user):
-    """show all of a users games from the terminal"""
+    """show all the user's games and times from the terminal"""
     your_games = []
     results = read_games_model(user)
     formatted_games = list(results)
+    hour_text = ""
     for games in formatted_games:
         game_name = games[0]
         time_played = games[1]
-        print(f"{game_name.title()}: {time_played}")
+        if time_played < 3600:
+            time_played = "Less than an hour"
+        elif time_played >= 3600:
+            time_played = time_played / 3600
+            time_played = int(math.floor(time_played))
+            if time_played == 1:
+                hour_text = " hour"
+            else:
+                hour_text = " hours"
+        print(f"{game_name.title()}: {time_played}{hour_text} played")
 
 
 def show_user_game_controller(name_of_game):
@@ -40,12 +50,10 @@ def show_user_game_controller(name_of_game):
 def show_users_controller():
     all_users = show_users_model()
     print(all_users)
-# TODO 8: add users to make sure this function works
 
 
 # update
-def update_game_record_controller():
-    user = "xsist14"
+def update_game_record_controller(user):
     game_title = input("what is the game called?: \n").lower()
     game_year_start = input("what year did you start playing?: \n").lower()
     game_month_start = input("what month did you start playing?: \n").lower()

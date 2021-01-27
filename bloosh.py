@@ -6,7 +6,6 @@ from time_lord import TimeLord
 
 # sessions logic
 
-
 # define our clear function
 def clear():
     # for windows
@@ -18,8 +17,17 @@ def clear():
 
 
 def main_menu(user):
-    # TODO 10: need a full reboot on the menu system
-    # TODO 11: make a logout function
+    # TODO 1: need a full reboot on the menu system
+    """
+    new menu system
+    first layer is login, signup, forgot password doorkeeper
+    second layer is games, sessions, logout
+    third layer is inside games and sessions with an option to back out to the second layer
+    games is crud
+    sessions is crud
+    maybe add random game quotes
+    """
+    # TODO 2: make a logout function
     print()
     clear()
     print(logo)
@@ -57,15 +65,15 @@ def main_menu(user):
         doctor = TimeLord()
         read_games_controller(user)
         doctor.add_session_controller(user)
-        # TODO 2: write the time passing to the DB
-        # TODO 3: add the time passed to the overall game
         main_menu(user)
     elif menu_response == "6":
         print("delete session under construction")
-        # TODO 9: add functionality to delete sessions
+        # TODO 3: add functionality to delete sessions
+        # TODO 4: add classes for menu, sessions and games
+        # TODO 5: Build out webapp with flask and deploy on a digital ocean droplet
     elif menu_response == "7":
         read_games_controller(user)
-        update_game_record_controller()
+        update_game_record_controller(user)
         go_on = input("type 'y' to continue")
         if go_on == 'y':
             main_menu(user)
@@ -77,22 +85,9 @@ def main_menu(user):
         quit()
 
 
-
-
-
-'''
-new menu system
-top layer is login, signup, forgot password
-next layer is games, sessions, user info
-games is crud
-sessions is crud
-user info can be random game quotes, statistics like most played
-'''
-
 door_keeper = DoorKeeper()
 is_on = True
 while is_on:
-    # door_keeper.give_options()
     response = door_keeper.get_response()
     if response == '1':
         door_keeper.create_account()

@@ -55,12 +55,12 @@ class DoorKeeper:
             return results
 
     def forgot_password(self):
-        # TODO 12 Build out a forgot password solution
+        # TODO 1: Build out a forgot password solution
         """this is one of those deals where we gotta email the user with a temporary password"""
         print("better remember it then")
 
     def show_users(self):
-        # TODO 13: remove this functionality at some point
+        # TODO 2: remove this functionality at some point
         results = show_users_model()
         print(results)
 

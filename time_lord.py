@@ -9,7 +9,6 @@ class TimeLord:
 
     """lots of time tracking code going on in here"""
     def add_session_controller(self, user):
-        # TODO 16: put all this code in a method for class TimeLord
         game_title = input("what is the game called?: \n")
         now = datetime.now()
         response = input("type 'y' to stop tracking")

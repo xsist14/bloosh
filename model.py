@@ -97,12 +97,10 @@ def check_password_match_model(username, password):
     connection.close()
     return results
 
-# TODO 14: Show all sessions
-# TODO 15: add session time to overall game time for user also under an hour always displays less than an hour
-# TODO 7: show all users function
+
+# TODO 1: show single user function
 
 
-# TODO 6: show single user function
 # update
 def update_game_record_model(game_title, game_start, game_finished, seconds_played, user):
     connection = sqlite3.connect('bloosh1.db')
